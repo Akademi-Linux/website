@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Rust and generated WASM bindings
+target
+src/wasm/pkg
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

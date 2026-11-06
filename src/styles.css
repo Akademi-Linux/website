@@ -1,0 +1,285 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* The root stays at 16px so Tailwind's rem sizes match the design's pixel values. */
+  html {
+    @apply bg-al-bg;
+  }
+  body {
+    @apply bg-al-bg font-mono text-al-text;
+    font-size: 15px;
+    line-height: 1.6;
+    font-variant-ligatures: none;
+  }
+  a {
+    @apply text-al-term underline;
+    transition: color 80ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  a:hover {
+    @apply text-al-glow;
+  }
+  :focus-visible {
+    outline: 1px solid theme("colors.al.term");
+    outline-offset: 2px;
+  }
+  h1[tabindex="-1"]:focus,
+  main:focus {
+    outline: none;
+  }
+}
+
+@layer components {
+  /* Background layers: canvas z0, tint and scanlines z1, content z2, prompt z50. */
+  #bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .page-tint,
+  .crt {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .page-tint {
+    background: radial-gradient(ellipse 70% 45% at 50% 0%, rgb(28 185 0 / 0.06), transparent 70%);
+  }
+  body[data-route="tools"] .page-tint {
+    background: radial-gradient(ellipse at 50% 40%, rgb(245 158 11 / 0.06), transparent 60%);
+  }
+  .crt {
+    background:
+      repeating-linear-gradient(0deg, rgb(0 0 0 / 0.22) 0 1px, transparent 1px 3px),
+      radial-gradient(ellipse at center, transparent 62%, rgb(0 0 0 / 0.45));
+  }
+
+  /* Layout helpers */
+  .auto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--min, 240px), 100%), 1fr));
+  }
+  .panel {
+    @apply border border-al-border;
+    background: rgb(13 17 23 / 0.9);
+  }
+  .section-title {
+    @apply m-0 text-xl font-bold text-al-term;
+  }
+  .eyebrow {
+    @apply text-[11px] tracking-[0.1em] text-al-muted;
+  }
+  .small {
+    @apply text-[13px] leading-5 text-al-muted;
+  }
+  .glow {
+    @apply text-al-glow text-glow-md;
+  }
+  .caret {
+    @apply animate-caret text-al-glow;
+  }
+  .shell-line {
+    @apply text-sm text-al-text;
+  }
+
+  /* Links and buttons */
+  .btn {
+    @apply inline-flex min-h-11 items-center px-5 py-3.5 no-underline;
+  }
+  .btn-primary {
+    @apply btn bg-al-brand font-bold text-al-bg;
+    box-shadow: 0 0 22px rgb(28 185 0 / 0.4);
+  }
+  .btn-primary:hover {
+    @apply text-al-bg;
+    filter: brightness(1.1);
+  }
+  .btn-ghost {
+    @apply btn border border-al-border text-al-text;
+    background: rgb(13 17 23 / 0.8);
+  }
+  .card-link {
+    @apply flex flex-col border border-al-border text-al-text no-underline;
+    background: rgb(13 17 23 / 0.9);
+    transition:
+      border-color 150ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .card-link:hover,
+  .card-link:focus-visible {
+    @apply border-al-term text-al-text;
+    box-shadow:
+      0 0 0 1px rgb(34 197 94 / 0.3),
+      0 0 20px rgb(34 197 94 / 0.25);
+  }
+  .nav-link {
+    @apply inline-flex min-h-11 items-center border border-transparent px-3 text-al-muted no-underline;
+  }
+  .nav-link:hover {
+    @apply text-al-text;
+  }
+  .nav-link[aria-current="page"] {
+    @apply border-al-term text-al-glow text-glow-sm;
+  }
+  body[data-route="tools"] .nav-link[aria-current="page"] {
+    @apply border-al-warn text-al-warn;
+    text-shadow: none;
+  }
+  .touch-link {
+    @apply inline-flex min-h-11 items-center self-start;
+  }
+  .footer-tag {
+    @apply self-start rounded-md px-2.5 py-1 text-xs font-bold tracking-[0.08em];
+    border: 1.5px solid theme("colors.al.bg");
+  }
+  .footer-link {
+    @apply inline-flex min-h-11 items-center text-al-bg no-underline;
+  }
+  .footer-link:hover {
+    @apply text-al-bg underline;
+  }
+
+  /* Page transition */
+  .view-out {
+    opacity: 0;
+    filter: blur(2px);
+    transition:
+      opacity 120ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      filter 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* Command prompt */
+  .scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgb(10 10 10 / 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .scrim.is-on {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .prompt {
+    position: fixed;
+    z-index: 50;
+    left: 50%;
+    bottom: 24px;
+    width: min(720px, calc(100% - 32px));
+    transform: translate(-50%, 12px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 150ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 150ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      visibility 150ms;
+  }
+  .prompt.is-on {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    /* Visibility must flip instantly on open, or the input can't take focus. */
+    transition:
+      transform 150ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 150ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      visibility 0s;
+  }
+  .prompt-msg {
+    @apply text-[13px];
+  }
+  .prompt-msg:not(:empty) {
+    @apply mb-2 border border-al-border bg-al-elevated px-3.5 py-2;
+  }
+  .suggest {
+    @apply mb-2 border border-al-border bg-al-elevated text-[13.5px];
+  }
+  .suggest[hidden] {
+    display: none;
+  }
+  .suggest-head {
+    @apply border-b border-al-border px-3.5 py-2 text-[11px] tracking-[0.1em] text-al-muted;
+  }
+  .suggest li {
+    @apply flex min-h-11 cursor-pointer items-center justify-between gap-3 px-3.5 text-al-muted;
+  }
+  .suggest li[aria-selected="true"] {
+    @apply text-al-glow;
+    background: rgb(34 197 94 / 0.12);
+    box-shadow: inset 2px 0 0 theme("colors.al.glow");
+  }
+  .prompt-line {
+    @apply flex items-center gap-2.5 border border-al-term bg-al-surface px-4 py-3.5;
+    box-shadow:
+      0 0 0 1px rgb(34 197 94 / 0.3),
+      0 0 20px rgb(34 197 94 / 0.25);
+  }
+  .prompt-field {
+    @apply relative min-w-0 flex-1;
+  }
+  .prompt-field input,
+  .prompt-ghost {
+    @apply w-full border-0 bg-transparent p-0;
+    font: inherit;
+  }
+  .prompt-field input {
+    @apply relative text-al-text outline-none;
+    caret-color: theme("colors.al.glow");
+  }
+  @media (pointer: coarse) {
+    /* Keeps iOS from zooming the page when the input is focused. */
+    .prompt-field input,
+    .prompt-ghost {
+      font-size: 16px;
+    }
+  }
+  .prompt-ghost {
+    @apply pointer-events-none absolute inset-0 whitespace-pre text-al-muted;
+  }
+  .prompt-esc {
+    @apply min-h-7 cursor-pointer border border-al-border bg-transparent px-2 text-[11px] text-al-muted;
+  }
+
+  /* Helper chip */
+  .hint {
+    @apply fixed bottom-4 right-4 z-30 flex min-h-12 cursor-pointer items-center gap-2.5 border border-al-border px-3.5 text-xs text-al-muted;
+    background: rgb(13 17 23 / 0.85);
+    backdrop-filter: blur(6px);
+    transition: opacity 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .hint kbd {
+    @apply border border-al-term px-[7px] py-px text-al-glow;
+    font: inherit;
+    box-shadow: 0 0 8px rgb(34 197 94 / 0.3);
+  }
+  .hint.is-dim {
+    opacity: 0.5;
+  }
+  .hint.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* /discord log */
+  .gateway {
+    @apply fixed bottom-20 left-1/2 z-30 w-[min(640px,calc(100%-32px))] -translate-x-1/2 border border-al-term bg-al-surface p-4 text-[13px] leading-[22px] text-al-muted;
+    box-shadow: 0 0 20px rgb(34 197 94 / 0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
