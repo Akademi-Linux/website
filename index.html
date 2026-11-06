@@ -2,13 +2,291 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Akademi Linux</title>
-    <script type="module" crossorigin src="/assets/index-sXZdPqfW.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BCI3BKuQ.css">
+    <meta name="description" content="Open knowledge. Fair membership. Real infrastructure careers." />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="/assets/index-D_il8EnQ.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Lp7gHMxU.css">
   </head>
-  <body>
-    <div id="root"></div>
+  <body data-route="home">
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <div class="page-tint" aria-hidden="true"></div>
+    <div class="crt" aria-hidden="true"></div>
+
+    <div id="app" class="relative z-[2] flex min-h-screen flex-col">
+  
+  <header id="header" class="relative border-b border-al-border bg-al-bg/80">
+    <div class="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-4 px-6 py-[18px]">
+      <a class="flex" href="/" data-cmd="/home" aria-label="Akademi Linux home">
+        <img src="/assets/brand/logo_primary-white.svg" alt="" width="119" height="44" class="h-11 w-[119px] object-contain drop-shadow-[0_0_8px_rgba(28,185,0,.4)]" />
+      </a>
+      <nav aria-label="Primary" class="flex flex-wrap gap-1.5 text-[13px]">
+        <a class="nav-link" href="/" data-cmd="/home" aria-current="page">/home</a>
+        <a class="nav-link" href="/about" data-cmd="/about">/about</a>
+        <a class="nav-link" href="/tools" data-cmd="/tools">/tools</a>
+        <a class="nav-link" href="https://discord.com/" target="_blank" rel="noopener" data-cmd="/discord">/discord ↗</a>
+      </nav>
+      <div class="flex items-center gap-2 text-xs text-al-muted"><span class="h-2 w-2 rounded-full bg-al-term shadow-[0_0_8px_#22c55e]"></span>SYSTEM ONLINE · tty1</div>
+    </div>
+  </header>
+  <main id="view" tabindex="-1" class="relative mx-auto w-full max-w-[1280px] flex-1 px-6 pb-[120px]">
+  <div class="flex flex-col gap-[72px] pt-16">
+    <section aria-labelledby="hero-title" class="flex flex-col gap-7">
+      <div class="text-[13px] text-al-muted">[ <span class="text-al-term">OK</span> ] Boot sequence complete · welcome, visitor</div>
+      <div class="overflow-x-auto pb-1">
+        <pre aria-hidden="true" class="m-0 font-mono text-[13px] leading-[14px] text-al-glow" style="text-shadow:0 0 6px rgba(74,222,128,.55),0 0 26px rgba(28,185,0,.35)"> █████╗ ██╗  ██╗ █████╗ ██████╗ ███████╗███╗   ███╗██╗    ██╗     ██╗███╗   ██╗██╗   ██╗██╗  ██╗
+██╔══██╗██║ ██╔╝██╔══██╗██╔══██╗██╔════╝████╗ ████║██║    ██║     ██║████╗  ██║██║   ██║╚██╗██╔╝
+███████║█████╔╝ ███████║██║  ██║█████╗  ██╔████╔██║██║    ██║     ██║██╔██╗ ██║██║   ██║ ╚███╔╝
+██╔══██║██╔═██╗ ██╔══██║██║  ██║██╔══╝  ██║╚██╔╝██║██║    ██║     ██║██║╚██╗██║██║   ██║ ██╔██╗
+██║  ██║██║  ██╗██║  ██║██████╔╝███████╗██║ ╚═╝ ██║██║    ███████╗██║██║ ╚████║╚██████╔╝██╔╝ ██╗
+╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝    ╚══════╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝</pre>
+      </div>
+      <h1 id="hero-title" tabindex="-1" class="m-0 max-w-[900px] text-[clamp(28px,4vw,44px)] font-bold leading-[1.2]">Learn Linux the way it's meant to be used — <span class="glow">from the shell</span><span class="caret">▋</span></h1>
+      <p class="m-0 max-w-[720px] text-base leading-[26px] text-al-muted">[HERO SUBLINE — one sentence on who Akademi Linux is for and what they'll get.] Every page here is a command. Press <span class="border border-al-term px-1.5 text-al-text">/</span> to start.</p>
+      <div class="flex flex-wrap gap-3">
+        <a class="btn-primary" href="https://discord.com/" target="_blank" rel="noopener" data-cmd="/discord">$ /discord — join the community</a>
+        <a class="btn-ghost" href="/about" data-cmd="/about">$ man akademi</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="topics-title" class="flex flex-col gap-5">
+      <div class="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 id="topics-title" class="section-title">## ls /courses</h2>
+        <span class="text-[13px] text-al-muted">5 tracks · free to start</span>
+      </div>
+      <div class="auto-grid gap-4" style="--min:200px">
+  <a class="card-link gap-3.5 p-[22px]" href="/about" data-cmd="/about">
+    <div class="flex h-[72px] w-[72px] items-center justify-center border border-al-border bg-al-elevated">
+      <img src="/assets/tech/linux.png" alt="Linux (Tux) logo" width="43" height="52" loading="lazy" decoding="async" />
+    </div>
+    <span class="eyebrow">TRACK 01</span>
+    <span class="text-lg font-bold">Linux</span>
+    <span class="small">Shell, filesystems, users and permissions, systemd, networking, troubleshooting.</span>
+  </a>
+  <a class="card-link gap-3.5 p-[22px]" href="/about" data-cmd="/about">
+    <div class="flex h-[72px] w-[72px] items-center justify-center border border-al-border bg-al-elevated">
+      <img src="/assets/tech/docker.png" alt="Docker logo" width="46" height="46" loading="lazy" decoding="async" />
+    </div>
+    <span class="eyebrow">TRACK 02</span>
+    <span class="text-lg font-bold">Docker</span>
+    <span class="small">Images, containers, volumes, networking, Compose, secure builds.</span>
+  </a>
+  <a class="card-link gap-3.5 p-[22px]" href="/about" data-cmd="/about">
+    <div class="flex h-[72px] w-[72px] items-center justify-center border border-al-border bg-al-elevated">
+      <img src="/assets/tech/kubernetes.png" alt="Kubernetes logo" width="52" height="50" loading="lazy" decoding="async" />
+    </div>
+    <span class="eyebrow">TRACK 03</span>
+    <span class="text-lg font-bold">Kubernetes</span>
+    <span class="small">Pods, deployments, services, storage, RBAC, cluster operations.</span>
+  </a>
+  <a class="card-link gap-3.5 p-[22px]" href="/about" data-cmd="/about">
+    <div class="flex h-[72px] w-[72px] items-center justify-center border border-al-border bg-al-elevated">
+      <img src="/assets/tech/openstack.png" alt="OpenStack logo" width="45" height="44" loading="lazy" decoding="async" />
+    </div>
+    <span class="eyebrow">TRACK 04</span>
+    <span class="text-lg font-bold">OpenStack</span>
+    <span class="small">Private cloud: Keystone, Nova, Neutron, Cinder, deployment and day-2 ops.</span>
+  </a>
+  <a class="card-link gap-3.5 p-[22px]" href="/about" data-cmd="/about">
+    <div class="flex h-[72px] w-[72px] items-center justify-center border border-al-border bg-al-elevated">
+      <img src="/assets/tech/ceph.png" alt="Ceph logo" width="49" height="48" loading="lazy" decoding="async" />
+    </div>
+    <span class="eyebrow">TRACK 05</span>
+    <span class="text-lg font-bold">Ceph</span>
+    <span class="small">Software-defined storage: RADOS, RBD, CephFS, RGW, cluster operations.</span>
+  </a></div>
+    </section>
+
+    <section aria-labelledby="lab-title" class="auto-grid items-start gap-8 border border-al-term p-[clamp(24px,4vw,48px)]" style="--min:340px;background:rgba(13,17,23,.92);box-shadow:0 0 32px rgba(34,197,94,.12)">
+      <div class="flex flex-col gap-[22px]">
+        <span class="self-start border border-al-term px-2.5 py-1 text-[11px] tracking-[0.14em] text-al-glow">LAB ENGINE</span>
+        <h2 id="lab-title" class="glow m-0 text-[clamp(26px,3vw,34px)] font-bold leading-[1.2]">Aklin Lab Engine</h2>
+        <p class="m-0 text-base leading-[26px]">Hands-on learning on real machines. Aklin builds a fresh KVM lab for every scenario, checks your work live as you complete each task, and gives you an AI assistant when you're stuck.</p>
+        <div class="auto-grid gap-3.5" style="--min:220px">
+  <div class="flex flex-col gap-1.5 border border-al-border p-4">
+    <span class="text-sm text-al-term">[01] KVM-based</span>
+    <span class="small">Real virtual machines with root access. Not a simulator.</span>
+  </div>
+  <div class="flex flex-col gap-1.5 border border-al-border p-4">
+    <span class="text-sm text-al-term">[02] Real scenarios</span>
+    <span class="small">Broken boots, failing pods, full disks: the incidents you'll meet on the job.</span>
+  </div>
+  <div class="flex flex-col gap-1.5 border border-al-border p-4">
+    <span class="text-sm text-al-term">[03] Live task checks</span>
+    <span class="small">Each task is verified against the lab's real state the moment you finish it.</span>
+  </div>
+  <div class="flex flex-col gap-1.5 border border-al-border p-4">
+    <span class="text-sm text-al-term">[04] AI-assisted</span>
+    <span class="small">Ask for a hint, not the answer. The assistant sees your lab and nudges you forward.</span>
+  </div></div>
+        <a class="btn-primary self-start" href="https://discord.com/" target="_blank" rel="noopener" data-cmd="/discord">$ aklin lab start</a>
+      </div>
+      <div role="group" aria-label="Example Aklin lab session" class="min-w-0 border border-al-border bg-al-bg text-[13px] leading-[22px]">
+        <div class="flex flex-wrap justify-between gap-2 border-b border-al-border px-4 py-2.5 text-xs text-al-muted"><span>aklin · lab: k8s-troubleshoot-01</span><span><span class="text-al-term">●</span> 3 VMs running</span></div>
+        <div class="flex flex-col gap-1 border-b border-al-border p-4">
+          <div class="eyebrow mb-1">TASKS</div>
+          <div><span class="text-al-term">[✔]</span> Find why the web pod is in CrashLoopBackOff</div>
+          <div><span class="text-al-term">[✔]</span> Fix the ConfigMap and roll out the deployment</div>
+          <div class="text-al-glow"><span class="animate-caret">[▸]</span> Expose the service on NodePort 30080</div>
+          <div class="text-al-muted">[ ] Confirm the app answers on worker-2</div>
+        </div>
+        <div class="overflow-x-auto border-b border-al-border p-4 text-al-muted">
+          <div class="whitespace-pre"><span class="text-al-term">student@cp-1</span>:~$ <span class="text-al-text">kubectl get pods -n shop</span></div>
+          <div class="whitespace-pre">NAME                   READY   STATUS    RESTARTS</div>
+          <div class="whitespace-pre">web-7c9f8d6b5-x2kqp    1/1     <span class="text-al-term">Running</span>   3</div>
+          <div class="whitespace-pre"><span class="text-al-info">aklin</span> ✔ check passed: deployment/web healthy</div>
+        </div>
+        <div class="flex gap-3 p-4">
+          <span class="h-[18px] shrink-0 bg-al-glow px-1.5 text-[11px] font-bold leading-[18px] text-al-bg">AI</span>
+          <span>Hint: a Service picks pods by label. Compare the selector with the labels on your pods.</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="mentors-title" class="flex flex-col gap-5">
+      <div class="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 id="mentors-title" class="section-title">## who -m  <span class="text-sm font-normal text-al-muted">· mentors</span></h2>
+        <span class="text-[13px] text-al-muted">1 mentor online</span>
+      </div>
+      <div class="auto-grid gap-4" style="--min:300px">
+        <article class="panel flex flex-wrap items-start gap-5 p-6">
+          <div role="img" aria-label="Photo of Aji Arya (placeholder)" class="flex h-24 w-24 shrink-0 items-center justify-center border border-al-term bg-al-elevated text-[30px] font-bold text-al-glow" style="text-shadow:0 0 6px rgba(74,222,128,.6);box-shadow:0 0 18px rgba(34,197,94,.2)">AA</div>
+          <div class="flex min-w-[200px] flex-1 flex-col gap-2">
+            <span class="eyebrow">uid=1000 · FOUNDER &amp; MENTOR</span>
+            <h3 class="m-0 text-xl font-bold">Aji Arya</h3>
+            <p class="small m-0">[SHORT BIO: current role, years in infrastructure, what you love teaching.]</p>
+            <div class="flex flex-wrap gap-1.5 text-xs">
+              <span class="border border-al-border px-2 py-[3px]">[EXPERTISE 1]</span>
+              <span class="border border-al-border px-2 py-[3px]">[EXPERTISE 2]</span>
+              <span class="border border-al-border px-2 py-[3px]">[EXPERTISE 3]</span>
+            </div>
+            <div class="mt-1 flex flex-wrap gap-3.5 text-[13px]"><a class="touch-link" href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube ↗</a><a class="touch-link" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+          </div>
+        </article>
+        <a href="https://discord.com/" target="_blank" rel="noopener" class="flex min-h-36 flex-col justify-center gap-2 border border-dashed border-al-border p-6 no-underline">
+          <span class="text-lg text-al-term">[ + ] useradd mentor</span>
+          <span class="small">Work in infrastructure and want to teach? Join us as a mentor. Say hi in Discord.</span>
+        </a>
+      </div>
+    </section>
+
+    <section aria-labelledby="qs-title" class="flex flex-col gap-5">
+      <h2 id="qs-title" class="section-title">## quick-start</h2>
+      <div class="auto-grid gap-4" style="--min:240px">
+        <a class="card-link min-h-[120px] gap-2.5 p-[22px]" href="/about" data-cmd="/about"><span class="eyebrow">[1] ROUTE</span><span class="text-lg text-al-term">/about</span><span class="small">Mission, programs and who runs this — as a man page.</span></a>
+        <a class="card-link min-h-[120px] gap-2.5 p-[22px]" href="/tools" data-cmd="/tools"><span class="eyebrow">[2] ROUTE</span><span class="text-lg text-al-term">/tools</span><span class="small">Utilities for learners. <span class="text-al-warn">[MODULE_OFFLINE]</span></span></a>
+        <a class="card-link min-h-[120px] gap-2.5 !border-al-term p-[22px]" style="box-shadow:0 0 18px rgba(34,197,94,.15)" href="https://discord.com/" target="_blank" rel="noopener" data-cmd="/discord"><span class="eyebrow">[3] EXTERNAL</span><span class="text-lg text-al-glow">/discord ↗</span><span class="small">Ask questions, share setups, find study buddies.</span></a>
+        <div class="flex min-h-[120px] flex-col gap-2.5 border border-dashed border-al-border p-[22px]"><span class="eyebrow">[?] BUILTIN</span><span class="text-lg text-al-term">/help</span><span class="small">Lists every command. Press / then type help.</span></div>
+      </div>
+    </section>
+
+    <section class="auto-grid gap-6" style="--min:320px">
+      <div class="panel min-w-0">
+        <div class="flex justify-between gap-3 border-b border-al-border px-4 py-2.5 text-xs text-al-muted"><span>journalctl -u akademi --follow</span><span class="flex items-center gap-1.5" aria-hidden="true"><span class="h-2.5 w-2.5 rounded-full border border-al-border"></span><span class="h-2.5 w-2.5 rounded-full border border-al-border"></span><span class="h-2.5 w-2.5 rounded-full bg-al-term"></span></span></div>
+        <div class="px-5 py-[18px] text-[13px] leading-6 text-al-muted">
+          <div>[ 0.0012 ] kernel: akademi-linux <span class="text-al-text">v[VERSION]</span> booting</div>
+          <div>[ <span class="text-al-term">OK</span> ] Started community.service</div>
+          <div>[ <span class="text-al-term">OK</span> ] Mounted /dev/discord → <span class="text-al-text">[MEMBER COUNT] members</span></div>
+          <div>[ <span class="text-al-term">OK</span> ] Reached target learning.target</div>
+          <div>[ <span class="text-al-warn">WARN</span> ] tools.service: module offline (coming soon)</div>
+          <div>[ <span class="text-al-info">INFO</span> ] Next event: [EVENT NAME · DATE]</div>
+          <div class="caret" aria-hidden="true">▋</div>
+        </div>
+      </div>
+      <div class="panel flex min-w-0 flex-col">
+        <div class="border-b border-al-border px-4 py-2.5 text-xs text-al-muted">systemctl status</div>
+        <div class="grid flex-1 grid-cols-2">
+          
+  <div class="flex flex-col gap-1.5 p-5 border-b border-r border-al-border">
+    <span class="eyebrow">COMMUNITY</span>
+    <span class="text-[22px] text-al-term">● active</span>
+  </div>
+          
+  <div class="flex flex-col gap-1.5 p-5 border-b border-al-border">
+    <span class="eyebrow">ABOUT</span>
+    <span class="text-[22px] text-al-term">● active</span>
+  </div>
+          
+  <div class="flex flex-col gap-1.5 p-5 border-r border-al-border">
+    <span class="eyebrow">TOOLS</span>
+    <span class="text-[22px] text-al-warn">○ offline</span>
+  </div>
+          
+  <div class="flex flex-col gap-1.5 p-5 ">
+    <span class="eyebrow">UPTIME</span>
+    <span id="uptime" class="text-[22px] text-al-text">00:00:00</span>
+  </div>
+        </div>
+      </div>
+    </section>
+  </div></main>
+  <div id="footer">
+  <footer class="relative mt-6">
+    <img src="/assets/art/footer-art.svg" width="1440" height="600" loading="lazy" decoding="async" alt="Engraved illustration: a temple whose columns are server racks with the Akademi Linux mark in its pediment, a satellite, a dish and power lines, overgrown with ferns that dissolve into the green footer" class="-mb-0.5 block h-auto w-full" />
+    <div class="bg-al-brand text-al-bg">
+      <div class="mx-auto flex max-w-[1280px] flex-col gap-14 px-6 pt-2">
+        <div class="flex flex-wrap items-end justify-between gap-8">
+          <img src="/assets/brand/logo_primary-mono-dark.svg" alt="Akademi Linux" width="300" height="111" loading="lazy" class="h-[111px] w-[300px] max-w-full object-contain object-left" />
+          <p class="m-0 max-w-[420px] text-[15px] font-medium leading-6">Open knowledge. Fair membership. Real infrastructure careers.</p>
+        </div>
+
+        <div class="auto-grid items-start gap-10" style="--min:220px">
+          <div class="flex flex-col gap-3">
+            <span class="footer-tag">COMMUNITY</span>
+            <p class="m-0 text-sm leading-[22px]">Free tutorials on YouTube.<br />Daily troubleshooting on Discord.</p>
+          </div>
+          <nav aria-label="Footer" class="flex flex-col text-sm font-medium">
+            <span class="footer-tag mb-2.5">$ ls /</span>
+            <a class="footer-link" href="/" data-cmd="/home">/home</a>
+            <a class="footer-link" href="/about" data-cmd="/about">/about</a>
+            <a class="footer-link" href="/tools" data-cmd="/tools">/tools</a>
+            <a class="footer-link" href="https://discord.com/" target="_blank" rel="noopener" data-cmd="/discord">/discord ↗</a>
+          </nav>
+          <div class="flex flex-col gap-3">
+            <span class="footer-tag">ENTERPRISE TRAINING</span>
+            <p class="m-0 text-sm leading-[22px]">We come to your office and train your team on-site.<br /><a href="mailto:[TRAINING EMAIL]" class="font-bold text-al-bg hover:text-al-bg">[TRAINING EMAIL]</a></p>
+          </div>
+          <div class="flex flex-col gap-3">
+            <span class="text-sm font-bold">Socials:</span>
+            <div class="flex gap-2">
+              <a href="https://discord.com/" target="_blank" rel="noopener" aria-label="Akademi Linux on Discord" class="flex h-11 w-11 items-center justify-center text-al-bg hover:text-al-bg"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path><path d="M9 11h.01M15 11h.01"></path></svg></a>
+              <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="Akademi Linux on YouTube" class="flex h-11 w-11 items-center justify-center text-al-bg hover:text-al-bg"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z"></path></svg></a>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="Akademi Linux on LinkedIn" class="flex h-11 w-11 items-center justify-center text-al-bg hover:text-al-bg"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"></path></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2 pb-7 pt-[18px] text-xs leading-[18px]" style="border-top:1.5px solid #0a0a0a">
+          <div class="flex flex-wrap justify-between gap-3 font-bold"><span>Akademi Linux · © All rights reserved [YEAR]</span><span>exit 0</span></div>
+          <p class="m-0 text-[11px] leading-[17px]">Linux® is the registered trademark of Linus Torvalds. Docker, Kubernetes, OpenStack and Ceph logos are trademarks of their respective owners, shown to identify course topics.</p>
+        </div>
+      </div>
+    </div>
+  </footer></div></div>
+
+    <div class="scrim" id="scrim"></div>
+    <div class="prompt" id="prompt" role="dialog" aria-modal="true" aria-label="Command prompt">
+      <div class="prompt-msg" id="prompt-msg" aria-live="assertive"></div>
+      <div class="suggest" id="suggest-box">
+        <div class="suggest-head">SUGGESTIONS · ↑↓ move · Tab complete · Enter run</div>
+        <ul id="suggest" role="listbox" aria-label="Command suggestions"></ul>
+      </div>
+      <div class="prompt-line">
+        <label class="whitespace-nowrap text-al-term" for="cmd">visitor@akademi<span class="text-al-muted">:</span><span class="text-al-info">~</span><span class="text-al-muted">$</span></label>
+        <div class="prompt-field">
+          <span class="prompt-ghost" id="ghost" aria-hidden="true"></span>
+          <input id="cmd" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-controls="suggest" aria-expanded="false" />
+        </div>
+        <button class="prompt-esc" id="esc" type="button" aria-label="Close command prompt">esc</button>
+      </div>
+    </div>
+
+    <button class="hint" id="hint" type="button">Press <kbd>/</kbd> to open command prompt</button>
+    <div class="sr-only" aria-live="polite" id="announce"></div>
   </body>
 </html>
