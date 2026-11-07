@@ -1,4 +1,4 @@
-import { discord, DISCORD_URL, LINKEDIN_URL, route, YOUTUBE_URL } from "../config";
+import { discord, DISCORD_URL, externalIcon, LINKEDIN_URL, route, YOUTUBE_URL } from "../config";
 
 const BANNER = String.raw` █████╗ ██╗  ██╗ █████╗ ██████╗ ███████╗███╗   ███╗██╗    ██╗     ██╗███╗   ██╗██╗   ██╗██╗  ██╗
 ██╔══██╗██║ ██╔╝██╔══██╗██╔══██╗██╔════╝████╗ ████║██║    ██║     ██║████╗  ██║██║   ██║╚██╗██╔╝
@@ -122,7 +122,7 @@ export const renderHome = (): string => `
               <span class="border border-al-border px-2 py-[3px]">[EXPERTISE 2]</span>
               <span class="border border-al-border px-2 py-[3px]">[EXPERTISE 3]</span>
             </div>
-            <div class="mt-1 flex flex-wrap gap-3.5 text-[13px]"><a class="touch-link" href="${YOUTUBE_URL}" target="_blank" rel="noopener">YouTube ↗</a><a class="touch-link" href="${LINKEDIN_URL}" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+            <div class="mt-1 flex flex-wrap gap-3.5 text-[13px]"><a class="touch-link" href="${YOUTUBE_URL}" target="_blank" rel="noopener">YouTube${externalIcon}</a><a class="touch-link" href="${LINKEDIN_URL}" target="_blank" rel="noopener">LinkedIn${externalIcon}</a></div>
           </div>
         </article>
         <a href="${DISCORD_URL}" target="_blank" rel="noopener" class="flex min-h-36 flex-col justify-center gap-2 border border-dashed border-al-border p-6 no-underline">
@@ -137,7 +137,7 @@ export const renderHome = (): string => `
       <div class="grid-2-4">
         <a class="card-link min-h-[120px] gap-2.5 p-[22px]" ${route("/about")}><span class="eyebrow">[1] ROUTE</span><span class="text-lg text-al-term">/about</span><span class="small">Mission, programs and who runs this — as a man page.</span></a>
         <a class="card-link min-h-[120px] gap-2.5 p-[22px]" ${route("/tools")}><span class="eyebrow">[2] ROUTE</span><span class="text-lg text-al-term">/tools</span><span class="small">Utilities for learners. <span class="text-al-warn">[MODULE_OFFLINE]</span></span></a>
-        <a class="card-link min-h-[120px] gap-2.5 !border-al-term p-[22px]" style="box-shadow:0 0 18px rgba(34,197,94,.15)" ${discord}><span class="eyebrow">[3] EXTERNAL</span><span class="text-lg text-al-glow">/discord ↗</span><span class="small">Ask questions, share setups, find study buddies.</span></a>
+        <a class="card-link min-h-[120px] gap-2.5 !border-al-term p-[22px]" style="box-shadow:0 0 18px rgba(34,197,94,.15)" ${discord}><span class="eyebrow">[3] EXTERNAL</span><span class="text-lg text-al-glow">/discord${externalIcon}</span><span class="small">Ask questions, share setups, find study buddies.</span></a>
         <div class="flex min-h-[120px] flex-col gap-2.5 border border-dashed border-al-border p-[22px]"><span class="eyebrow">[?] BUILTIN</span><span class="text-lg text-al-term">/help</span><span class="small">Lists every command. <span class="on-keys">Press /</span><span class="on-touch">Tap &gt;_</span> then type help.</span></div>
       </div>
     </section>
@@ -161,7 +161,7 @@ export const renderHome = (): string => `
           ${status("COMMUNITY", `<span class="text-lg text-al-term sm:text-[22px]">● active</span>`, "border-b border-r border-al-border")}
           ${status("ABOUT", `<span class="text-lg text-al-term sm:text-[22px]">● active</span>`, "border-b border-al-border")}
           ${status("TOOLS", `<span class="text-lg text-al-warn sm:text-[22px]">○ offline</span>`, "border-r border-al-border")}
-          ${status("UPTIME", `<span id="uptime" class="text-lg text-al-text sm:text-[22px]">00:00:00</span>`, "")}
+          ${status("UPTIME", `<span id="uptime" class="text-lg text-al-text sm:text-[22px]">--:--:--</span>`, "")}
         </div>
       </div>
     </section>

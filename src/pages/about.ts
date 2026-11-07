@@ -1,4 +1,4 @@
-import { discord, DISCORD_URL, route, YOUTUBE_URL } from "../config";
+import { discord, DISCORD_URL, externalIcon, route, YOUTUBE_URL } from "../config";
 
 const fact = (label: string, value: string) =>
   `<div class="flex items-baseline"><span class="inline-block w-[84px] shrink-0 text-al-term sm:w-[130px]">${label}</span><span class="min-w-0">${value}</span></div>`;
@@ -49,8 +49,8 @@ export const renderAbout = (): string => `
     <div class="shell-line">visitor@akademi:~$ akademi --stats</div>
 
     <section aria-label="Akademi Linux in numbers" class="grid-2-4">
-      ${stat("YOUTUBE SUBSCRIBERS", "Free tutorials and walkthroughs on the channel.", `<a href="${YOUTUBE_URL}" target="_blank" rel="noopener" class="touch-link text-[13px]">Watch on YouTube ↗</a>`)}
-      ${stat("DISCORD MEMBERS", "Learners troubleshooting together every day.", `<a href="${DISCORD_URL}" target="_blank" rel="noopener" class="touch-link text-[13px]">Join the server ↗</a>`)}
+      ${stat("YOUTUBE SUBSCRIBERS", "Free tutorials and walkthroughs on the channel.", `<a href="${YOUTUBE_URL}" target="_blank" rel="noopener" class="touch-link text-[13px]">Watch on YouTube${externalIcon}</a>`)}
+      ${stat("DISCORD MEMBERS", "Learners troubleshooting together every day.", `<a href="${DISCORD_URL}" target="_blank" rel="noopener" class="touch-link text-[13px]">Join the server${externalIcon}</a>`)}
       ${stat("WORK PLACEMENTS", "Learners placed into sysadmin, DevSecOps and cloud ops roles.", "")}
       ${stat("ON-SITE / ENTERPRISE TRAINING", "Companies trained. We come to your office and teach your team on your stack.", `<a href="mailto:[TRAINING EMAIL]" class="touch-link text-[13px]">$ request --training</a>`, true)}
     </section>

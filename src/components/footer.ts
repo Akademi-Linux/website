@@ -1,10 +1,8 @@
-import { discord, DISCORD_URL, LINKEDIN_URL, route, YOUTUBE_URL } from "../config";
+import { discord, DISCORD_URL, externalIcon, LINKEDIN_URL, route, YOUTUBE_URL } from "../config";
 
-const icon = (paths: string) =>
-  `<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
-
-const social = (href: string, label: string, paths: string) =>
-  `<a href="${href}" target="_blank" rel="noopener" aria-label="${label}" class="flex h-11 w-11 items-center justify-center text-al-bg hover:text-al-bg">${icon(paths)}</a>`;
+// Tailwind only generates icon classes it finds written out in full, so pass the whole class.
+const social = (href: string, label: string, iconClass: string) =>
+  `<a href="${href}" target="_blank" rel="noopener" aria-label="${label}" class="flex h-11 w-11 items-center justify-center text-[22px] text-al-bg hover:text-al-bg"><span aria-hidden="true" class="${iconClass}"></span></a>`;
 
 export const renderFooter = (): string => `
   <footer class="relative mt-6">
@@ -26,7 +24,7 @@ export const renderFooter = (): string => `
             <a class="footer-link" ${route("/home")}>/home</a>
             <a class="footer-link" ${route("/about")}>/about</a>
             <a class="footer-link" ${route("/tools")}>/tools</a>
-            <a class="footer-link" ${discord}>/discord ↗</a>
+            <a class="footer-link" ${discord}>/discord${externalIcon}</a>
           </nav>
           <div class="flex flex-col gap-3">
             <span class="footer-tag">ENTERPRISE TRAINING</span>
@@ -35,15 +33,15 @@ export const renderFooter = (): string => `
           <div class="flex flex-col gap-3">
             <span class="text-sm font-bold">Socials:</span>
             <div class="flex gap-2">
-              ${social(DISCORD_URL, "Akademi Linux on Discord", `<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path><path d="M9 11h.01M15 11h.01"></path>`)}
-              ${social(YOUTUBE_URL, "Akademi Linux on YouTube", `<rect x="2.5" y="5" width="19" height="14" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z"></path>`)}
-              ${social(LINKEDIN_URL, "Akademi Linux on LinkedIn", `<rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"></path>`)}
+              ${social(DISCORD_URL, "Akademi Linux on Discord", "icon-[simple-icons--discord]")}
+              ${social(YOUTUBE_URL, "Akademi Linux on YouTube", "icon-[simple-icons--youtube]")}
+              ${social(LINKEDIN_URL, "Akademi Linux on LinkedIn", "icon-[simple-icons--linkedin]")}
             </div>
           </div>
         </div>
 
         <div class="footer-end flex flex-col gap-2 pt-[18px] text-xs leading-[18px]" style="border-top:1.5px solid #0a0a0a">
-          <div class="flex flex-wrap justify-between gap-3 font-bold"><span>Akademi Linux · © All rights reserved [YEAR]</span><span>exit 0</span></div>
+          <div class="flex flex-wrap justify-between gap-3 font-bold"><span>Akademi Linux · © All rights reserved 2026</span><span>exit 0</span></div>
           <p class="m-0 text-xs leading-[18px] sm:text-[11px] sm:leading-[17px]">Linux® is the registered trademark of Linus Torvalds. Docker, Kubernetes, OpenStack and Ceph logos are trademarks of their respective owners, shown to identify course topics.</p>
         </div>
       </div>

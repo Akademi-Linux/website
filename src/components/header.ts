@@ -1,4 +1,4 @@
-import { discord, route, type RouteId } from "../config";
+import { discord, externalIcon, route, type RouteId } from "../config";
 
 const status: Record<RouteId, string> = {
   home: `<span class="h-2 w-2 rounded-full bg-al-term shadow-[0_0_8px_#22c55e]"></span>SYSTEM ONLINE<span class="hidden sm:inline"> · tty1</span>`,
@@ -22,7 +22,7 @@ export const renderHeader = (current: RouteId): string => `
         ${navLink("/home", current)}
         ${navLink("/about", current)}
         ${navLink("/tools", current)}
-        <a class="nav-link" ${discord}>/discord ↗</a>
+        <a class="nav-link" ${discord}>/discord${externalIcon}</a>
       </nav>
       <div class="flex items-center gap-2 whitespace-nowrap text-xs text-al-muted">${status[current]}</div>
     </div>

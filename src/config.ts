@@ -21,3 +21,6 @@ export const route = (command: "/home" | "/about" | "/tools"): string =>
 
 /** Attributes for a link that plays the /discord log when the shell is loaded. */
 export const discord = `href="${DISCORD_URL}" target="_blank" rel="noopener" data-cmd="/discord"`;
+
+/** Arrow shown after a link that leaves the site. */
+export const externalIcon = `<span aria-hidden="true" class="icon-[lucide--arrow-up-right] ml-[.2em] align-[-.125em]"></span>`;

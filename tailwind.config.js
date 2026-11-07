@@ -1,3 +1,5 @@
+import { addDynamicIconSelectors } from "@iconify/tailwind";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.ts"],
@@ -48,6 +50,8 @@ export default {
     },
   },
   plugins: [
+    // Icons are written into the CSS at build time: no runtime script or CDN request.
+    addDynamicIconSelectors(),
     ({ matchUtilities, theme }) =>
       matchUtilities({ "text-glow": (value) => ({ textShadow: value }) }, { values: theme("textShadow") }),
   ],

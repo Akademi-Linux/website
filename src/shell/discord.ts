@@ -1,4 +1,4 @@
-import { DISCORD_URL } from "../config";
+import { DISCORD_URL, externalIcon } from "../config";
 
 const STEPS = [
   ["DNS resolve     discord.gg", "+180ms"],
@@ -52,7 +52,7 @@ export function openDiscord(reduceMotion: boolean) {
 
   const finish = () => {
     if (panel !== current) return;
-    const fallback = `<a href="${DISCORD_URL}" target="_blank" rel="noopener">open the invite ↗</a>`;
+    const fallback = `<a href="${DISCORD_URL}" target="_blank" rel="noopener">open the invite${externalIcon}</a>`;
     if (tab) {
       line(`<span class="text-al-text">Opening community invite in new tab ▸</span>`, box);
       line(`Not opened? → ${fallback}`, box);

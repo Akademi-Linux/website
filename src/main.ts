@@ -26,6 +26,7 @@ function paint(route: RouteId) {
   (document.getElementById("header") as HTMLElement).outerHTML = renderHeader(route);
   (document.getElementById("view") as HTMLElement).innerHTML = renderPage[route]();
   (document.getElementById("footer") as HTMLElement).innerHTML = footerFor(route);
+  showUptime();
   window.scrollTo(0, 0);
   document.querySelector<HTMLElement>("#view h1")?.focus({ preventScroll: true });
   announce.textContent = `Navigated to ${route === "notfound" ? "page not found" : route}`;
@@ -98,14 +99,22 @@ window.addEventListener("popstate", () => {
   else syncWithUrl(shell);
 });
 
-function startUptime() {
-  const started = Date.now();
+/** Time since this build went out, so it's the same for every visitor and survives a refresh. */
+function showUptime() {
+  const el = document.getElementById("uptime");
+  if (!el) return;
   const pad = (n: number) => String(n).padStart(2, "0");
+  // A visitor's clock can be behind the build machine's.
+  const s = Math.max(0, Math.floor((Date.now() - Number(import.meta.env.VITE_BUILT_AT)) / 1000));
+  const days = Math.floor(s / 86400);
+  const clock = `${pad(Math.floor(s / 3600) % 24)}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
+  el.textContent = days > 0 ? `${days}d ${clock}` : clock;
+}
+
+function startUptime() {
+  showUptime();
   window.setInterval(() => {
-    const el = document.getElementById("uptime");
-    if (!el) return;
-    const s = Math.floor((Date.now() - started) / 1000);
-    el.textContent = `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
+    if (!document.hidden) showUptime();
   }, 1000);
 }
 
