@@ -26,3 +26,9 @@ src/wasm/pkg
 *.njsproj
 *.sln
 *.sw?
+
+# Project-local Claude skills: engine binary and runtime caches
+.claude/skills/impeccable/scripts/bin/
+.impeccable/*
+!.impeccable/config.json
+__pycache__
