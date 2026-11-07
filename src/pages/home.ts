@@ -7,6 +7,14 @@ const BANNER = String.raw` █████╗ ██╗  ██╗ ████�
 ██║  ██║██║  ██╗██║  ██║██████╔╝███████╗██║ ╚═╝ ██║██║    ███████╗██║██║ ╚████║╚██████╔╝██╔╝ ██╗
 ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝    ╚══════╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝`;
 
+// The two words are set separately so they can stack on phones.
+const bannerColumns = (start: number, end?: number) =>
+  BANNER.split("\n")
+    .map((line) => line.slice(start, end))
+    .join("\n");
+const AKADEMI = bannerColumns(0, 54);
+const LINUX = bannerColumns(58);
+
 const TRACKS = [
   { name: "Linux", img: "linux", alt: "Linux (Tux) logo", w: 43, h: 52, text: "Shell, filesystems, users and permissions, systemd, networking, troubleshooting." },
   { name: "Docker", img: "docker", alt: "Docker logo", w: 46, h: 46, text: "Images, containers, volumes, networking, Compose, secure builds." },
@@ -23,9 +31,9 @@ const FEATURES = [
 ];
 
 const track = (t: (typeof TRACKS)[number], i: number) => `
-  <a class="card-link gap-3.5 p-[22px]" ${route("/about")}>
-    <div class="flex h-[72px] w-[72px] items-center justify-center border border-al-border bg-al-elevated">
-      <img src="/assets/tech/${t.img}.png" alt="${t.alt}" width="${t.w}" height="${t.h}" loading="lazy" decoding="async" />
+  <a class="card-link grid grid-cols-[56px_minmax(0,1fr)] gap-x-4 gap-y-1 p-4 sm:flex sm:gap-3.5 sm:p-[22px]" ${route("/about")}>
+    <div class="row-span-3 flex h-14 w-14 items-center justify-center self-start border border-al-border bg-al-elevated sm:h-[72px] sm:w-[72px]">
+      <img src="/assets/tech/${t.img}.png" alt="${t.alt}" width="${t.w}" height="${t.h}" loading="lazy" decoding="async" class="max-h-[72%] max-w-[72%] sm:max-h-none sm:max-w-none" />
     </div>
     <span class="eyebrow">TRACK 0${i + 1}</span>
     <span class="text-lg font-bold">${t.name}</span>
@@ -39,21 +47,21 @@ const feature = ([title, text]: string[]) => `
   </div>`;
 
 const status = (label: string, value: string, classes: string) => `
-  <div class="flex flex-col gap-1.5 p-5 ${classes}">
+  <div class="flex min-w-0 flex-col gap-1.5 p-4 sm:p-5 ${classes}">
     <span class="eyebrow">${label}</span>
     ${value}
   </div>`;
 
 export const renderHome = (): string => `
-  <div class="flex flex-col gap-[72px] pt-16">
+  <div class="flex flex-col gap-14 pt-8 md:gap-[72px] md:pt-16">
     <section aria-labelledby="hero-title" class="flex flex-col gap-7">
       <div class="text-[13px] text-al-muted">[ <span class="text-al-term">OK</span> ] Boot sequence complete · welcome, visitor</div>
-      <div class="overflow-x-auto pb-1">
-        <pre aria-hidden="true" class="m-0 font-mono text-[13px] leading-[14px] text-al-glow" style="text-shadow:0 0 6px rgba(74,222,128,.55),0 0 26px rgba(28,185,0,.35)">${BANNER}</pre>
+      <div class="ascii" aria-hidden="true">
+        <div class="ascii-banner text-al-glow" style="text-shadow:0 0 6px rgba(74,222,128,.55),0 0 26px rgba(28,185,0,.35)"><pre>${AKADEMI}</pre><pre>${LINUX}</pre></div>
       </div>
       <h1 id="hero-title" tabindex="-1" class="m-0 max-w-[900px] text-[clamp(28px,4vw,44px)] font-bold leading-[1.2]">Learn Linux the way it's meant to be used — <span class="glow">from the shell</span><span class="caret">▋</span></h1>
-      <p class="m-0 max-w-[720px] text-base leading-[26px] text-al-muted">[HERO SUBLINE — one sentence on who Akademi Linux is for and what they'll get.] Every page here is a command. Press <span class="border border-al-term px-1.5 text-al-text">/</span> to start.</p>
-      <div class="flex flex-wrap gap-3">
+      <p class="m-0 max-w-[720px] text-base leading-[26px] text-al-muted">[HERO SUBLINE — one sentence on who Akademi Linux is for and what they'll get.] Every page here is a command. <span class="on-keys">Press <span class="border border-al-term px-1.5 text-al-text">/</span></span><span class="on-touch">Tap <span class="border border-al-term px-1.5 text-al-text">&gt;_</span></span> to start.</p>
+      <div class="cta-row">
         <a class="btn-primary" ${discord}>$ /discord — join the community</a>
         <a class="btn-ghost" ${route("/about")}>$ man akademi</a>
       </div>
@@ -64,33 +72,33 @@ export const renderHome = (): string => `
         <h2 id="topics-title" class="section-title">## ls /courses</h2>
         <span class="text-[13px] text-al-muted">5 tracks · free to start</span>
       </div>
-      <div class="auto-grid gap-4" style="--min:200px">${TRACKS.map(track).join("")}</div>
+      <div class="track-grid">${TRACKS.map(track).join("")}</div>
     </section>
 
-    <section aria-labelledby="lab-title" class="auto-grid items-start gap-8 border border-al-term p-[clamp(24px,4vw,48px)]" style="--min:340px;background:rgba(13,17,23,.92);box-shadow:0 0 32px rgba(34,197,94,.12)">
+    <section aria-labelledby="lab-title" class="auto-grid items-start gap-6 border border-al-term p-[clamp(16px,4vw,48px)] md:gap-8" style="--min:340px;background:rgba(13,17,23,.92);box-shadow:0 0 32px rgba(34,197,94,.12)">
       <div class="flex flex-col gap-[22px]">
-        <span class="self-start border border-al-term px-2.5 py-1 text-[11px] tracking-[0.14em] text-al-glow">LAB ENGINE</span>
+        <span class="self-start border border-al-term px-2.5 py-1 text-xs tracking-[0.14em] text-al-glow lg:text-[11px]">LAB ENGINE</span>
         <h2 id="lab-title" class="glow m-0 text-[clamp(26px,3vw,34px)] font-bold leading-[1.2]">Aklin Lab Engine</h2>
         <p class="m-0 text-base leading-[26px]">Hands-on learning on real machines. Aklin builds a fresh KVM lab for every scenario, checks your work live as you complete each task, and gives you an AI assistant when you're stuck.</p>
         <div class="auto-grid gap-3.5" style="--min:220px">${FEATURES.map(feature).join("")}</div>
-        <a class="btn-primary self-start" ${discord}>$ aklin lab start</a>
+        <a class="btn-primary w-full sm:w-auto sm:self-start" ${discord}>$ aklin lab start</a>
       </div>
       <div role="group" aria-label="Example Aklin lab session" class="min-w-0 border border-al-border bg-al-bg text-[13px] leading-[22px]">
         <div class="flex flex-wrap justify-between gap-2 border-b border-al-border px-4 py-2.5 text-xs text-al-muted"><span>aklin · lab: k8s-troubleshoot-01</span><span><span class="text-al-term">●</span> 3 VMs running</span></div>
-        <div class="flex flex-col gap-1 border-b border-al-border p-4">
+        <div class="flex flex-col gap-1 border-b border-al-border p-3 sm:p-4">
           <div class="eyebrow mb-1">TASKS</div>
           <div><span class="text-al-term">[✔]</span> Find why the web pod is in CrashLoopBackOff</div>
           <div><span class="text-al-term">[✔]</span> Fix the ConfigMap and roll out the deployment</div>
           <div class="text-al-glow"><span class="animate-caret">[▸]</span> Expose the service on NodePort 30080</div>
           <div class="text-al-muted">[ ] Confirm the app answers on worker-2</div>
         </div>
-        <div class="overflow-x-auto border-b border-al-border p-4 text-al-muted">
-          <div class="whitespace-pre"><span class="text-al-term">student@cp-1</span>:~$ <span class="text-al-text">kubectl get pods -n shop</span></div>
-          <div class="whitespace-pre">NAME                   READY   STATUS    RESTARTS</div>
-          <div class="whitespace-pre">web-7c9f8d6b5-x2kqp    1/1     <span class="text-al-term">Running</span>   3</div>
-          <div class="whitespace-pre"><span class="text-al-info">aklin</span> ✔ check passed: deployment/web healthy</div>
+        <div tabindex="0" role="region" aria-label="Example terminal output" class="overflow-x-auto border-b border-al-border p-3 text-xs text-al-muted sm:p-4 sm:text-[13px]">
+          <div class="whitespace-pre-wrap"><span class="text-al-term">student@cp-1</span>:~$ <span class="text-al-text">kubectl get pods -n shop</span></div>
+          <div class="whitespace-pre">NAME                   READY   STATUS<span class="hidden sm:inline">    RESTARTS</span></div>
+          <div class="whitespace-pre">web-7c9f8d6b5-x2kqp    1/1     <span class="text-al-term">Running</span><span class="hidden sm:inline">   3</span></div>
+          <div class="whitespace-pre-wrap"><span class="text-al-info">aklin</span> ✔ check passed: deployment/web healthy</div>
         </div>
-        <div class="flex gap-3 p-4">
+        <div class="flex gap-3 p-3 sm:p-4">
           <span class="h-[18px] shrink-0 bg-al-glow px-1.5 text-[11px] font-bold leading-[18px] text-al-bg">AI</span>
           <span>Hint: a Service picks pods by label. Compare the selector with the labels on your pods.</span>
         </div>
@@ -126,11 +134,11 @@ export const renderHome = (): string => `
 
     <section aria-labelledby="qs-title" class="flex flex-col gap-5">
       <h2 id="qs-title" class="section-title">## quick-start</h2>
-      <div class="auto-grid gap-4" style="--min:240px">
+      <div class="grid-2-4">
         <a class="card-link min-h-[120px] gap-2.5 p-[22px]" ${route("/about")}><span class="eyebrow">[1] ROUTE</span><span class="text-lg text-al-term">/about</span><span class="small">Mission, programs and who runs this — as a man page.</span></a>
         <a class="card-link min-h-[120px] gap-2.5 p-[22px]" ${route("/tools")}><span class="eyebrow">[2] ROUTE</span><span class="text-lg text-al-term">/tools</span><span class="small">Utilities for learners. <span class="text-al-warn">[MODULE_OFFLINE]</span></span></a>
         <a class="card-link min-h-[120px] gap-2.5 !border-al-term p-[22px]" style="box-shadow:0 0 18px rgba(34,197,94,.15)" ${discord}><span class="eyebrow">[3] EXTERNAL</span><span class="text-lg text-al-glow">/discord ↗</span><span class="small">Ask questions, share setups, find study buddies.</span></a>
-        <div class="flex min-h-[120px] flex-col gap-2.5 border border-dashed border-al-border p-[22px]"><span class="eyebrow">[?] BUILTIN</span><span class="text-lg text-al-term">/help</span><span class="small">Lists every command. Press / then type help.</span></div>
+        <div class="flex min-h-[120px] flex-col gap-2.5 border border-dashed border-al-border p-[22px]"><span class="eyebrow">[?] BUILTIN</span><span class="text-lg text-al-term">/help</span><span class="small">Lists every command. <span class="on-keys">Press /</span><span class="on-touch">Tap &gt;_</span> then type help.</span></div>
       </div>
     </section>
 
@@ -150,10 +158,10 @@ export const renderHome = (): string => `
       <div class="panel flex min-w-0 flex-col">
         <div class="border-b border-al-border px-4 py-2.5 text-xs text-al-muted">systemctl status</div>
         <div class="grid flex-1 grid-cols-2">
-          ${status("COMMUNITY", `<span class="text-[22px] text-al-term">● active</span>`, "border-b border-r border-al-border")}
-          ${status("ABOUT", `<span class="text-[22px] text-al-term">● active</span>`, "border-b border-al-border")}
-          ${status("TOOLS", `<span class="text-[22px] text-al-warn">○ offline</span>`, "border-r border-al-border")}
-          ${status("UPTIME", `<span id="uptime" class="text-[22px] text-al-text">00:00:00</span>`, "")}
+          ${status("COMMUNITY", `<span class="text-lg text-al-term sm:text-[22px]">● active</span>`, "border-b border-r border-al-border")}
+          ${status("ABOUT", `<span class="text-lg text-al-term sm:text-[22px]">● active</span>`, "border-b border-al-border")}
+          ${status("TOOLS", `<span class="text-lg text-al-warn sm:text-[22px]">○ offline</span>`, "border-r border-al-border")}
+          ${status("UPTIME", `<span id="uptime" class="text-lg text-al-text sm:text-[22px]">00:00:00</span>`, "")}
         </div>
       </div>
     </section>

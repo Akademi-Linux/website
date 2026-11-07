@@ -29,6 +29,7 @@ interface Shot {
 const R = Math.random;
 const MAX_STARS = 900;
 const MAX_DPR = 1.5;
+const MOBILE_BAR_MAX = 160;
 
 function sprite(stops: [number, string][]): HTMLCanvasElement {
   const canvas = document.createElement("canvas");
@@ -178,6 +179,8 @@ export function startStarfield(canvas: HTMLCanvasElement, reduceMotion: boolean)
 
   let resizeTimer: number | undefined;
   window.addEventListener("resize", () => {
+    // Mobile URL bars change the height while scrolling. Don't reshuffle the stars for that.
+    if (window.innerWidth === W && Math.abs(window.innerHeight - H) < MOBILE_BAR_MAX) return;
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => resize(ctx), 150);
   });

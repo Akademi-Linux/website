@@ -60,6 +60,99 @@
   }
 
   /* Layout helpers */
+  .track-grid {
+    display: grid;
+    gap: 12px;
+  }
+  .grid-2-4 {
+    display: grid;
+    gap: 16px;
+  }
+  @media (min-width: 640px) {
+    .track-grid {
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .track-grid > :last-child {
+      grid-column: span 2;
+    }
+    .grid-2-4 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 768px) {
+    /* Three cards over two, so five tracks leave no hole. */
+    .track-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+    .track-grid > * {
+      grid-column: span 2;
+    }
+    .track-grid > :nth-last-child(-n + 2) {
+      grid-column: span 3;
+    }
+  }
+  @media (min-width: 1024px) {
+    .grid-2-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1280px) {
+    .track-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .track-grid > *,
+    .track-grid > :nth-last-child(-n + 2) {
+      grid-column: span 1;
+    }
+  }
+  .cta-row {
+    @apply flex flex-col gap-3 sm:flex-row sm:flex-wrap;
+  }
+
+  /* ASCII art sized from its container: 33em holds one word, 58.4em the full banner. */
+  .ascii {
+    container-type: inline-size;
+    width: 100%;
+  }
+  .ascii pre {
+    margin: 0;
+    line-height: 1.08;
+  }
+  .ascii-word,
+  .ascii-banner {
+    font-size: min(14px, 2.4vw);
+    font-size: min(14px, calc(100cqi / 33));
+  }
+  .ascii-banner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9em;
+  }
+  @media (min-width: 640px) {
+    .ascii-banner {
+      flex-direction: row;
+      gap: 2.4em;
+      font-size: min(13px, 1.4vw);
+      font-size: min(13px, calc(100cqi / 58.4));
+    }
+  }
+
+  /* Instructions that depend on having a keyboard. */
+  .on-touch {
+    display: none;
+  }
+  @media (pointer: coarse) {
+    .on-touch {
+      display: inline;
+    }
+    .on-keys {
+      display: none;
+    }
+    .touch-link-coarse {
+      @apply inline-flex min-h-11 items-center;
+    }
+  }
   .auto-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(var(--min, 240px), 100%), 1fr));
@@ -72,10 +165,10 @@
     @apply m-0 text-xl font-bold text-al-term;
   }
   .eyebrow {
-    @apply text-[11px] tracking-[0.1em] text-al-muted;
+    @apply text-xs tracking-[0.1em] text-al-muted lg:text-[11px];
   }
   .small {
-    @apply text-[13px] leading-5 text-al-muted;
+    @apply text-sm leading-[22px] text-al-muted lg:text-[13px] lg:leading-5;
   }
   .glow {
     @apply text-al-glow text-glow-md;
@@ -89,7 +182,7 @@
 
   /* Links and buttons */
   .btn {
-    @apply inline-flex min-h-11 items-center px-5 py-3.5 no-underline;
+    @apply inline-flex min-h-11 items-center justify-center px-5 py-3.5 text-center no-underline;
   }
   .btn-primary {
     @apply btn bg-al-brand font-bold text-al-bg;
@@ -110,15 +203,24 @@
       border-color 150ms cubic-bezier(0.2, 0.8, 0.2, 1),
       box-shadow 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
-  .card-link:hover,
+  .card-link:active,
   .card-link:focus-visible {
     @apply border-al-term text-al-text;
     box-shadow:
       0 0 0 1px rgb(34 197 94 / 0.3),
       0 0 20px rgb(34 197 94 / 0.25);
   }
+  /* Touch screens would otherwise keep the hover glow after a tap. */
+  @media (hover: hover) {
+    .card-link:hover {
+      @apply border-al-term text-al-text;
+      box-shadow:
+        0 0 0 1px rgb(34 197 94 / 0.3),
+        0 0 20px rgb(34 197 94 / 0.25);
+    }
+  }
   .nav-link {
-    @apply inline-flex min-h-11 items-center border border-transparent px-3 text-al-muted no-underline;
+    @apply inline-flex min-h-11 items-center border border-transparent px-2 text-al-muted no-underline sm:px-3;
   }
   .nav-link:hover {
     @apply text-al-text;
@@ -136,6 +238,15 @@
   .footer-tag {
     @apply self-start rounded-md px-2.5 py-1 text-xs font-bold tracking-[0.08em];
     border: 1.5px solid theme("colors.al.bg");
+  }
+  .footer-end {
+    padding-bottom: 28px;
+  }
+  /* Leaves room so the touch command button doesn't cover the last lines. */
+  @media (pointer: coarse) {
+    .footer-end {
+      padding-bottom: 80px;
+    }
   }
   .footer-link {
     @apply inline-flex min-h-11 items-center text-al-bg no-underline;
@@ -171,7 +282,10 @@
     position: fixed;
     z-index: 50;
     left: 50%;
-    bottom: 24px;
+    bottom: calc(var(--prompt-gap, 16px) + var(--keyboard, 0px));
+    display: flex;
+    flex-direction: column;
+    max-height: calc(var(--visible-height, 100dvh) - 32px);
     width: min(720px, calc(100% - 32px));
     transform: translate(-50%, 12px);
     opacity: 0;
@@ -181,6 +295,11 @@
       transform 150ms cubic-bezier(0.2, 0.8, 0.2, 1),
       opacity 150ms cubic-bezier(0.2, 0.8, 0.2, 1),
       visibility 150ms;
+  }
+  @media (min-width: 640px) {
+    .prompt {
+      --prompt-gap: 24px;
+    }
   }
   .prompt.is-on {
     transform: translate(-50%, 0);
@@ -194,13 +313,17 @@
       visibility 0s;
   }
   .prompt-msg {
-    @apply text-[13px];
+    @apply shrink-0 text-[13px];
   }
   .prompt-msg:not(:empty) {
     @apply mb-2 border border-al-border bg-al-elevated px-3.5 py-2;
   }
   .suggest {
-    @apply mb-2 border border-al-border bg-al-elevated text-[13.5px];
+    @apply mb-2 flex min-h-0 flex-col border border-al-border bg-al-elevated text-[13.5px];
+  }
+  #suggest {
+    @apply min-h-0 overflow-y-auto;
+    overscroll-behavior: contain;
   }
   .suggest[hidden] {
     display: none;
@@ -217,7 +340,7 @@
     box-shadow: inset 2px 0 0 theme("colors.al.glow");
   }
   .prompt-line {
-    @apply flex items-center gap-2.5 border border-al-term bg-al-surface px-4 py-3.5;
+    @apply flex shrink-0 items-center gap-2.5 border border-al-term bg-al-surface px-3 py-2.5 sm:px-4 sm:py-3.5;
     box-shadow:
       0 0 0 1px rgb(34 197 94 / 0.3),
       0 0 20px rgb(34 197 94 / 0.25);
@@ -248,6 +371,12 @@
     @apply min-h-7 cursor-pointer border border-al-border bg-transparent px-2 text-[11px] text-al-muted;
   }
 
+  @media (pointer: coarse) {
+    .prompt-esc {
+      @apply min-h-11;
+    }
+  }
+
   /* Helper chip */
   .hint {
     @apply fixed bottom-4 right-4 z-30 flex min-h-12 cursor-pointer items-center gap-2.5 border border-al-border px-3.5 text-xs text-al-muted;
@@ -259,6 +388,22 @@
     @apply border border-al-term px-[7px] py-px text-al-glow;
     font: inherit;
     box-shadow: 0 0 8px rgb(34 197 94 / 0.3);
+  }
+  /* Touch gets a compact button, so the chip doesn't sit on top of the page. */
+  @media (pointer: coarse) {
+    .hint {
+      @apply min-w-12 justify-center px-0;
+    }
+    .hint .on-touch {
+      display: inline-block;
+    }
+  }
+  @media (pointer: fine) {
+    .hint .on-keys {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
   }
   .hint.is-dim {
     opacity: 0.5;

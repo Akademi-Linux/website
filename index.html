@@ -23,20 +23,20 @@
     <div class="prompt" id="prompt" role="dialog" aria-modal="true" aria-label="Command prompt">
       <div class="prompt-msg" id="prompt-msg" aria-live="assertive"></div>
       <div class="suggest" id="suggest-box">
-        <div class="suggest-head">SUGGESTIONS · ↑↓ move · Tab complete · Enter run</div>
+        <div class="suggest-head">SUGGESTIONS<span class="on-keys"> · ↑↓ move · Tab complete · Enter run</span><span class="on-touch"> · tap to run</span></div>
         <ul id="suggest" role="listbox" aria-label="Command suggestions"></ul>
       </div>
       <div class="prompt-line">
-        <label class="whitespace-nowrap text-al-term" for="cmd">visitor@akademi<span class="text-al-muted">:</span><span class="text-al-info">~</span><span class="text-al-muted">$</span></label>
+        <label class="whitespace-nowrap text-al-term" for="cmd"><span class="hidden sm:inline">visitor@akademi<span class="text-al-muted">:</span></span><span class="text-al-info">~</span><span class="text-al-muted">$</span></label>
         <div class="prompt-field">
           <span class="prompt-ghost" id="ghost" aria-hidden="true"></span>
-          <input id="cmd" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-controls="suggest" aria-expanded="false" />
+          <input id="cmd" type="text" aria-label="Command" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-controls="suggest" aria-expanded="false" />
         </div>
-        <button class="prompt-esc" id="esc" type="button" aria-label="Close command prompt">esc</button>
+        <button class="prompt-esc" id="esc" type="button" aria-label="Close command prompt"><span class="on-keys">esc</span><span class="on-touch">close</span></button>
       </div>
     </div>
 
-    <button class="hint" id="hint" type="button">Press <kbd>/</kbd> to open command prompt</button>
+    <button class="hint" id="hint" type="button" aria-label="Open command prompt"><span class="on-keys">Press <kbd>/</kbd> to open command prompt</span><kbd class="on-touch">&gt;_</kbd></button>
     <div class="sr-only" aria-live="polite" id="announce"></div>
   </body>
 </html>

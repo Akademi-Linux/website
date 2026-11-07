@@ -199,8 +199,18 @@ export function setupPrompt(background: Starfield, actions: PromptActions) {
     window.addEventListener(type, wake, { passive: true });
   }
   wake();
-  if (window.matchMedia("(pointer: coarse)").matches) {
-    hint.innerHTML = "Tap <kbd>&gt;_</kbd> for commands";
+
+  // Fixed elements don't move for the on-screen keyboard, so lift the prompt above it.
+  const viewport = window.visualViewport;
+  if (viewport) {
+    const fitToKeyboard = () => {
+      const covered = window.innerHeight - viewport.height - viewport.offsetTop;
+      dialog.style.setProperty("--keyboard", `${Math.max(0, covered)}px`);
+      dialog.style.setProperty("--visible-height", `${viewport.height}px`);
+    };
+    viewport.addEventListener("resize", fitToKeyboard);
+    viewport.addEventListener("scroll", fitToKeyboard);
+    fitToKeyboard();
   }
 
   return { close };

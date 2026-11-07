@@ -21,5 +21,5 @@ export { renderHeader, TITLES };
 
 export const renderApp = (route: RouteId): string => `
   ${renderHeader(route)}
-  <main id="view" tabindex="-1" class="relative mx-auto w-full max-w-[1280px] flex-1 px-6 pb-[120px]">${renderPage[route]()}</main>
+  <main id="view" tabindex="-1" class="relative mx-auto w-full max-w-[1280px] flex-1 px-4 pb-24 sm:px-6 md:pb-[120px]">${renderPage[route]()}</main>
   <div id="footer">${footerFor(route)}</div>`;
